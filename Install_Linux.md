@@ -191,3 +191,26 @@ a file is missing, you will be happy to know that the `apt` system has tools
 that help finding the name of the package providing the missing file (see
 <https://askubuntu.com/a/1912/129295> and <https://wiki.debian.org/apt-file>).
 
+
+### Update (29/11/2018): BiocManager, a new way to use Bioconductor
+
+It seems that [the official way to use Bioconductor](https://www.bioconductor.org/install/#why-biocmanagerinstall) has
+changed.
+
+Simply start by installing the `BiocManager` R package:
+
+```r
+install.packages("BiocManager")
+```
+
+Then, whenever you want to install packages, let BiocManager perform some updates:
+
+```r
+BiocManager::install()
+```
+
+And finally, use it to install the new packages:
+
+```r
+BiocManager::install(c("evaluate", "highr", "markdown", "stringr", "yaml", "htmltools", "caTools", "bitops", "knitr", "jsonlite", "base64enc", "rprojroot", "rmarkdown"))
+```
