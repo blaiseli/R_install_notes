@@ -75,7 +75,7 @@ provided by default by the current stable Debian ("buster" / 10) and Long-Term
 Support Ubuntu ("bionic" / 18.04) distributions.
 
 To make version 3.6 available in `apt`'s database, you need to provide it's
-localization though `apt`'s configuration mechanism, which consists in files
+localization through `apt`'s configuration mechanism, which consists in files
 residing in the `/etc/apt/sources.list.d/` directory.
 
 Refer to <https://cloud.r-project.org/bin/linux/> to find the exact source for
@@ -135,15 +135,15 @@ clicking on the link and continuing the mouse way, or copy the link and
 proceed to the download and installation the command line way:
 
 ```bash
-# If you are using Debian 9, MX Linux 17 or Ubuntu 16.04:
-wget https://download1.rstudio.org/rstudio-xenial-1.1.456-amd64.deb
+# If you are using Debian 10, MX Linux 19 or Ubuntu 18.04:
+wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5033-amd64.deb
 # Install it (https://unix.stackexchange.com/a/159114/55127):
-sudo apt install ./rstudio-xenial-1.1.456-amd64.deb
+sudo apt install ./rstudio-1.2.5033-amd64.deb
 ```
 
 Note the dot (".") in the last command: it tells `apt install` that you want to
 use this exact downloaded file and not a package from the database whose name
-is "rstudio-xenial-1.1.456-amd64.deb".
+is "rstudio-1.2.5033-amd64.deb".
 
 If installation fails, it may be due to missing dependencies. Look at error
 messages for hints, and use help from colleagues or the internet and your
