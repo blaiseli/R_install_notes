@@ -70,33 +70,37 @@ latter case, try as much as possible to use the `apt` system.
 Installing R
 ------------
 
-As of August 2018, Bioconductor requires R version 3.5, which is not the one
-provided by default by the current stable Debian ("stretch" / 9) and Long-Term
-Support Ubuntu ("xenial" / 16.04) distributions.
+As of February 2020, Bioconductor requires R version 3.6, which is not the one
+provided by default by the current stable Debian ("buster" / 10) and Long-Term
+Support Ubuntu ("bionic" / 18.04) distributions.
 
-To make version 3.5 available in `apt`'s database, you need to provide it's
+To make version 3.6 available in `apt`'s database, you need to provide it's
 localization though `apt`'s configuration mechanism, which consists in files
 residing in the `/etc/apt/sources.list.d/` directory.
 
 Refer to <https://cloud.r-project.org/bin/linux/> to find the exact source for
-R version 3.5 (you need to know on which Debian or Ubuntu version your
+R version 3.6 (you need to know on which Debian or Ubuntu version your
 distribution is based). This will consist in some text starting with "deb
 source=" that you will have to add in a file in `/etc/apt/sources.list.d/`. The
-name of the file does not import but might have to end in ".list". I suggest
+name of the file does not matter but might have to end in ".list". I suggest
 `cran.list` (for ["Comprehensive R Archive
 Network"](https://cran.r-project.org)). Either proceed by using your favourite
 text editor, or on the command-line:
+
 ```bash
-# If you are using Ubuntu 16.04
-# deb_source="deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/"
-# If you are using MX Linux 17 or Debian 9
-deb_source="deb http://cloud.r-project.org/bin/linux/debian stretch-cran35/"
+# If you are using Ubuntu 18.04
+# deb_source="deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/"
+# If you are using MX Linux 19 or Debian 10
+deb_source="deb http://cloud.r-project.org/bin/linux/debian buster-cran35/"
 # Add the source for R to the source list
 echo ${deb_source} | sudo tee -a /etc/apt/sources.list.d/cran.list
 ```
 
 In order to avoid some warning messages, you also need to register the authentication key so that `apt` recognizes the package source as trusted:
 ```bash
+# If you are using Ubuntu 18.04
+# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+# If you are using MX Linux 19 or Debian 10
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
 ```
 
@@ -151,53 +155,9 @@ Using Bioconductor to install R packages
 
 As mentioned earlier, one way to install R packages is to do it via the
 Bioconductor project, which maintains a set of hopefully mutually-compatible
-packages. Bioconductor is used from within an R session, as follows:
-```r
-> source("https://bioconductor.org/biocLite.R")
-Installing package into ‘/usr/local/lib/R/site-library’
-(as ‘lib’ is unspecified)
-Warning in install.packages("BiocInstaller", repos = a["BioCsoft", "URL"]) :
-  'lib = "/usr/local/lib/R/site-library"' is not writable
-Would you like to use a personal library instead? (yes/No/cancel) yes
-Would you like to create a personal library
-‘~/R/x86_64-pc-linux-gnu-library/3.5’
-to install packages into? (yes/No/cancel) yes
-> biocLite()
-```
-
-Answer "yes" twice: First to accept installing packages in your home directory
-and second to accept the default proposed localization for the installed
 packages.
 
-This should now install Bioconductor.
-
-After this is done, you should be able to install packages. For instance,
-here is how to install those required to build presentations from Rstudio:
-
-```r
-# Install some packages
-biocLite(c("evaluate", "highr", "markdown", "stringr", "yaml", "htmltools", "caTools", "bitops", "knitr", "jsonlite", "base64enc", "rprojroot", "rmarkdown"))
-```
-
-As already mentioned, installing packages may require other tools, that are not
-part of R. In particular, you will likely need compilers (R packages sometimes
-use other programming languages internally, such as C, C++ and Fortran) and
-development libraries, that you should try to install using `apt` after
-consulting the internet. It may be useful to know that development libraries
-packages often have names that end in "-dev" and provide files with names
-ending in ".h" (for "header") or ".so" (possibly followed by extra dots and
-numbers) (for "shared object"). If you see error messages suggesting that such
-a file is missing, you will be happy to know that the `apt` system has tools
-that help finding the name of the package providing the missing file (see
-<https://askubuntu.com/a/1912/129295> and <https://wiki.debian.org/apt-file>).
-
-
-### Update (29/11/2018): BiocManager, a new way to use Bioconductor
-
-It seems that [the official way to use Bioconductor](https://www.bioconductor.org/install/#why-biocmanagerinstall) has
-changed.
-
-Simply start by installing the `BiocManager` R package:
+Within an R session, start by installing the `BiocManager` R package:
 
 ```r
 install.packages("BiocManager")
@@ -214,3 +174,17 @@ And finally, use it to install the new packages:
 ```r
 BiocManager::install(c("evaluate", "highr", "markdown", "stringr", "yaml", "htmltools", "caTools", "bitops", "knitr", "jsonlite", "base64enc", "rprojroot", "rmarkdown"))
 ```
+
+As already mentioned, installing packages may require other tools, that are not
+part of R. In particular, you will likely need compilers because R packages sometimes
+use other programming languages internally, such as C, C++ (that you can get by
+installing the `build-essential` package using `apt`) and Fortran. You might also
+need development libraries, that you should try to install using `apt` after
+consulting the internet. It may be useful to know that development libraries
+packages often have names that end in "-dev" and provide files with names
+ending in ".h" (for "header") or ".so" (possibly followed by extra dots and
+numbers) (for "shared object"). If you see error messages suggesting that such
+a file is missing, you will be happy to know that the `apt` system has tools
+that help finding the name of the package providing the missing file (see
+<https://askubuntu.com/a/1912/129295> and <https://wiki.debian.org/apt-file>).
+
