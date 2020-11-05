@@ -137,10 +137,13 @@ version number may vary):
 
 ```bash
 # If you are using Debian 10, MX Linux 19 or Ubuntu 18.04:
-wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.959-amd64.deb
+wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.1093-amd64.deb
+# For a distribution based on Debian 9, such as MX Linux 18:
+# wget https://download1.rstudio.org/desktop/debian9/x86_64/rstudio-1.3.1093-amd64.deb
 # Install it (https://unix.stackexchange.com/a/159114/55127):
-sudo apt install ./rstudio-1.3.959-amd64.deb
+sudo apt install ./rstudio-1.3.1093-amd64.deb
 ```
+
 
 Note the dot (".") in the last command: it tells `apt install` that you want to
 use this exact downloaded file and not a package from the database whose name
