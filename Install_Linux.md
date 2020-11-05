@@ -147,7 +147,7 @@ sudo apt install ./rstudio-1.3.1093-amd64.deb
 
 Note the dot (".") in the last command: it tells `apt install` that you want to
 use this exact downloaded file and not a package from the database whose name
-is "rstudio-1.3.959-amd64.deb".
+is "rstudio-1.3.1093-amd64.deb".
 
 If installation fails, it may be due to missing dependencies. Look at error
 messages for hints, and use help from colleagues or the internet and your
