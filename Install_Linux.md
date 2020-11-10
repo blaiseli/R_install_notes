@@ -70,16 +70,16 @@ latter case, try as much as possible to use the `apt` system.
 Installing R
 ------------
 
-As of February 2020, Bioconductor requires R version 3.6, which is not the one
+As of November 2020, Bioconductor requires R version 4, which is not the one
 provided by default by the current stable Debian ("buster" / 10) and Long-Term
-Support Ubuntu ("bionic" / 18.04) distributions.
+Support Ubuntu ("bionic" / 18.04 or "focal" / 20.04) distributions.
 
-To make version 3.6 available in `apt`'s database, you need to provide it's
+To make version 4 available in `apt`'s database, you need to provide it's
 localization through `apt`'s configuration mechanism, which consists in files
 residing in the `/etc/apt/sources.list.d/` directory.
 
 Refer to <https://cloud.r-project.org/bin/linux/> to find the exact source for
-R version 3.6 (you need to know on which Debian or Ubuntu version your
+R version 4 (you need to know on which Debian or Ubuntu version your
 distribution is based). This will consist in some text starting with "deb
 source=" that you will have to add in a file in `/etc/apt/sources.list.d/`. The
 name of the file does not matter but might have to end in ".list". I suggest
@@ -88,17 +88,19 @@ Network"](https://cran.r-project.org)). Either proceed by using your favourite
 text editor, or on the command-line:
 
 ```bash
+# If you are using Ubuntu 20.04
+# deb_source="deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/"
 # If you are using Ubuntu 18.04
-# deb_source="deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/"
+# deb_source="deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/"
 # If you are using MX Linux 19 or Debian 10
-deb_source="deb http://cloud.r-project.org/bin/linux/debian buster-cran35/"
+deb_source="deb http://cloud.r-project.org/bin/linux/debian buster-cran40/"
 # Add the source for R to the source list
 echo ${deb_source} | sudo tee -a /etc/apt/sources.list.d/cran.list
 ```
 
 In order to avoid some warning messages, you also need to register the authentication key so that `apt` recognizes the package source as trusted:
 ```bash
-# If you are using Ubuntu 18.04
+# If you are using Ubuntu 18.04 or 20.04
 # sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 # If you are using MX Linux 19 or Debian 10
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
@@ -116,7 +118,7 @@ sudo apt install r-base-core r-base-dev
 
 If everything worked as expected, you should now have a minimal R installation.
 Check that you have the desired version with the command `R --version`. If you
-get something older than 3.5, good luck: you may have another version of R
+get something older than 4, good luck: you may have another version of R
 interfering with the one you just installed. The present document does not
 cover the subject of already installed R versions and how to be sure to use the
 correct one.
@@ -136,7 +138,7 @@ proceed to the download and installation the command line way (the actual
 version number may vary):
 
 ```bash
-# If you are using Debian 10, MX Linux 19 or Ubuntu 18.04:
+# If you are using Debian 10, MX Linux 19 or Ubuntu 18.04 or 20.04:
 wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.1093-amd64.deb
 # For a distribution based on Debian 9, such as MX Linux 18:
 # wget https://download1.rstudio.org/desktop/debian9/x86_64/rstudio-1.3.1093-amd64.deb
